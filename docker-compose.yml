@@ -1,0 +1,31 @@
+version: "3"
+services:
+  app:
+    container_name: app
+    build: ./client
+    ports:
+      - 80:80
+    depends_on:
+      - api
+  api:
+    container_name: api
+    restart: always
+    build: ./api
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - DB=mongodb://db:27017/favhub
+      - JWT_ENCRYPTION=your jwt private encryption key
+      - JWT_EXPIRATION=1m
+      - REFRESH_JWT_ENCRYPTION=your jwt refresh private encryption key
+      - REFRESH_JWT_EXPIRATION=24h
+      - SALT_ROUNDS=10
+      - THETVDB_KEY=your valid key
+    depends_on:
+      - db
+  db:
+    container_name: db
+    image: mongo
+    ports:
+      - "27017:27017"
