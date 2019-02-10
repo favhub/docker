@@ -2,7 +2,7 @@ FROM node:10-alpine
 
 RUN apk add --no-cache bash git openssh python make g++
 
-RUN git clone https://github.com/favhub/api.git /api/
+RUN git clone https://github.com/favoriteshub/api.git /api/
 
 WORKDIR /api
 
